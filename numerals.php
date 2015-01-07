@@ -9,17 +9,6 @@
  * @license http://opensource.org/licenses/MIT MIT
  * @link https://github.com/davidyell/RomanNumeralCounting
  */
-$numerals = [
-    'I' => 1,
-    'V' => 5,
-    'X' => 10,
-    'L' => 50,
-    'C' => 100,
-    'D' => 500,
-    'M' => 1000
-];
-
-asort($numerals, SORT_NUMERIC);
 
 /**
  * Converts decimal numbers into roman numerals
@@ -30,47 +19,81 @@ asort($numerals, SORT_NUMERIC);
  */
 function numeralise($number) 
 {
+    $numerals = [
+        [
+            'numeral' => 'I',
+            'decimal' => 1
+        ],
+        [
+            'numeral' => 'V',
+            'decimal' => 5
+        ],
+        [
+            'numeral' => 'X',
+            'decimal' => 10
+        ],
+        [
+            'numeral' => 'L',
+            'decimal' => 50
+        ],
+        [
+            'numeral' => 'C',
+            'decimal' => 100
+        ],
+        [
+            'numeral' => 'D',
+            'decimal' => 500
+        ],
+        [
+            'numeral' => 'M',
+            'decimal' => 1000
+        ],
+    ];
+    //TODO: Sort array by inverse decimals
     switch ($number) {
-    case $number >= 1000:
-        echo "M";
-        $value = 1000;
-        break;
-    case $number >= 500:
-        echo "D";
-        $value = 500;
-        break;
-    case $number >= 100:
-        echo "C";
-        $value = 100;
-        break;
-    case $number >= 50:
-        echo "L";
-        $value = 50;
-        break;
-    case $number >= 10:
-        echo "X";
-        $value = 10;
-        break;
-    case $number == 9:
-        echo "IX";
-        $value = 9;
-        break;
-    case $number >= 5:
-        echo "V";
-        $value = 5;
-        break;
-    case $number == 4:
-        echo "IV";
-        $value = 4;
-        break;
-    case $number < 4:
-        for ($i = 0; $i < $number; $i++) {
-            echo "I";
-        }
-        $value = $i;
-        break;
+        case $number >= $numerals[6]['decimal']:
+            $index = 6;
+            break;
+        case $number >= $numerals[5]['decimal']:
+            $index = 5;
+            break;
+        case $number >= $numerals[4]['decimal']:
+            $index = 4;
+            break;
+        case $number >= $numerals[3]['decimal']:
+            $index = 3;
+            break;
+        case $number >= $numerals[2]['decimal']:
+            $index = 2;
+            break;
+        case $number == 9:
+            echo "IX";
+            $value = 9;
+            break;
+        case $number >= $numerals[1]['decimal']:
+            $index = 1;
+            break;
+        case $number == 4:
+            echo "IV";
+            $value = 4;
+            break;
+        case $number < 4:
+            for ($i = 0; $i < $number; $i++) {
+                echo "I";
+            }
+            $value = $i;
+            break;
     }
-    $number = $number - $value;
+    
+    if (isset($value)) {
+        $number = $number - $value;
+    } else {
+        $number = $number - $numerals[$index]['decimal'];
+        echo $numerals[$index]['numeral'];
+    }
+    
+    
+
     if ($number > 0) {
         numeralise($number);
     }
