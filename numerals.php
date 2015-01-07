@@ -33,44 +33,44 @@ function numeralise($number)
     switch ($number) {
     case $number >= 1000:
         echo "M";
-        $number = $number - 1000;
+        $value = 1000;
         break;
     case $number >= 500:
         echo "D";
-        $number = $number - 500;
+        $value = 500;
         break;
     case $number >= 100:
         echo "C";
-        $number = $number - 100;
+        $value = 100;
         break;
     case $number >= 50:
         echo "L";
-        $number = $number - 50;
+        $value = 50;
         break;
     case $number >= 10:
         echo "X";
-        $number = $number - 10;
+        $value = 10;
         break;
     case $number == 9:
         echo "IX";
-        $number = $number - 9;
+        $value = 9;
         break;
     case $number >= 5:
         echo "V";
-        $number = $number - 5;
+        $value = 5;
         break;
     case $number == 4:
         echo "IV";
-        $number = $number - 4;
+        $value = 4;
         break;
     case $number < 4:
         for ($i = 0; $i < $number; $i++) {
             echo "I";
         }
-        $number = $number - $i;
+        $value = $i;
         break;
     }
-
+    $number = $number - $value;
     if ($number > 0) {
         numeralise($number);
     }
